@@ -17,19 +17,57 @@ from models import User
 # Views go here!
 @app.get('/movies')
 def get_all_movies():
-    pass
+    movies = Movie.query.all()
+    data = [m.to_dict() for m in movies]
+    return make_response(
+        jsonify(data),
+        200
+    )
 
 @app.get('/movies/<int:id>')
 def get_movies_by_id(id):
-    pass
+    movie = Movie.query.filter(
+        Movie.id == id
+    ).first()
+    if not movie:
+        return make_response(
+            jsonify({'error': 'movie not found'}),
+            404
+        )
+    return make_response(
+        jsonify(movie.to_dict()),
+        200
+    )
 
 @app.get('/user/<int:id>')
 def get_user_by_id(id):
-    pass
+    user = User.query.filter(
+        User.id == id
+    ).first()
+    if not user:
+        return make_response(
+            jsonify({'error': 'user not found'}),
+            404
+        )
+    return make_response(
+        jsonify(user.to_dict()),
+        200
+    )
 
 @app.post('/reviews')
 def post_new_review():
-    pass 
+    data = request.get_json()
+    new_review = Review(
+        review = data.get('user_review'),
+        movie = data.get('movies_id'),
+        user = data.get('user_id'),
+    ) 
+    db.session.add(new_review)
+    db.session.commit()
+    return make_response(
+        jsonify(new_review.to_dict()),
+        201
+    ) 
 
 @app.patch('/review/<int:id>')
 def update_review_by_id(id):
@@ -37,7 +75,19 @@ def update_review_by_id(id):
 
 @app.delete('/review/<int:id>')
 def delete_review_by_id(id):
-    pass
+    review_del = Review.query.filter(
+        Review.id == id
+    ).first()
+
+    if not review_del:
+        return make_response(
+            jsonify({'error' : 'Review not found'}),
+            404
+        )
+    db.session.delete()
+    db.session.commit()
+
+    return make_response(jsonify({}), 200)
 
 
 @app.post('/login')
