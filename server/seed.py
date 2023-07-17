@@ -19,7 +19,7 @@ if __name__ == '__main__':
                 name=movie['name'],
                 year=movie['year'],
                 rating=movie['imdb_rating'],
-                img_url=movie["img_link"],
+                img_link=movie["img_link"],
             )
             print(current_movie)
 

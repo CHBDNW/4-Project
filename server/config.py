@@ -1,6 +1,7 @@
 # Standard library imports
 
 # Remote library imports
+from flask_bcrypt import Bcrypt
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -27,5 +28,6 @@ db.init_app(app)
 # Instantiate REST API
 api = Api(app)
 
+bcrypt = Bcrypt(app)
 # Instantiate CORS
 CORS(app)
