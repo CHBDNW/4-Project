@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
 # Standard library imports
-
+from models import db, User, Movie, Review
+from flask_restful import Api, Resource
+from flask_migrate import Migrate
+from flask import Flask, make_response, jsonify, request
+import os
 # Remote library imports
 from flask import request, session
 from flask_restful import Resource
@@ -11,9 +15,30 @@ from config import app, db, api
 from models import User
 
 # Views go here!
-@app.post('/signup')
-def signup():
+@app.get('/movies')
+def get_all_movies():
     pass
+
+@app.get('/movies/<int:id>')
+def get_movies_by_id(id):
+    pass
+
+@app.get('/user/<int:id>')
+def get_user_by_id(id):
+    pass
+
+@app.post('/reviews')
+def post_new_review():
+    pass 
+
+@app.patch('/review/<int:id>')
+def update_review_by_id(id):
+    pass
+
+@app.delete('/review/<int:id>')
+def delete_review_by_id(id):
+    pass
+
 
 @app.post('/login')
 def login():
