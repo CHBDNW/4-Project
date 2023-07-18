@@ -2,16 +2,16 @@
 
 # Standard library imports
 from models import db, User, Movie, Review
-from flask_restful import Api, Resource
+# from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask import Flask, make_response, jsonify, request
 import os
 # Remote library imports
 from flask import request, session
-from flask_restful import Resource
+# from flask_restful import Resource
 # Local imports
 from config import app, db, api
-from models import User
+from models import User, Movie, Review
 # Views go here!
 
 @app.get('/movies')
@@ -57,9 +57,9 @@ def get_user_by_id(id):
 def post_new_review():
     data = request.get_json()
     new_review = Review(
-        review = data.get('user_review'),
-        movie = data.get('movies_id'),
-        user = data.get('user_id'),
+        user_review = data.get('user_review'),
+        movies_id = data.get('movies_id'),
+        user_id = data.get('user_id'),
     ) 
     db.session.add(new_review)
     db.session.commit()
@@ -70,7 +70,25 @@ def post_new_review():
 
 @app.patch('/review/<int:id>')
 def update_review_by_id(id):
-    pass
+    review = Review.query.filter(
+        Review.id == id
+    ).first()
+    if not review:
+        return make_response(
+            jsonify({'error': 'review not found'}),
+            404
+        )
+    data = request.get_json()
+
+    for field in data:
+        setattr(review, field, data[field])
+    db.session.add(review)
+    db.session.commit()
+
+    return make_response(
+        jsonify(review.to_dict()),
+        200
+    )
 
 @app.delete('/review/<int:id>')
 def delete_review_by_id(id):
@@ -83,7 +101,7 @@ def delete_review_by_id(id):
             jsonify({'error' : 'Review not found'}),
             404
         )
-    db.session.delete()
+    db.session.delete(review_del)
     db.session.commit()
 
     return make_response(jsonify({}), 200)
