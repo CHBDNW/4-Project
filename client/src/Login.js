@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-function Login({ setuser }) {
+function Login({ setuser, navigate }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -35,6 +35,9 @@ function Login({ setuser }) {
         }
       })
   };
+  function handleSignupClick() {
+    navigate('/signup')
+  }
 
   return (
     <div>
@@ -59,6 +62,7 @@ function Login({ setuser }) {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleSignupClick}>Signup</button>
     </div>
   );
 }
