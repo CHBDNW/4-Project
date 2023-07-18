@@ -11,7 +11,6 @@ from flask import request, session
 from flask_restful import Resource
 # Local imports
 from config import app, db, api
-from models import User
 # Views go here!
 
 @app.get('/movies')
