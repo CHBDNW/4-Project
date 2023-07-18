@@ -24,6 +24,7 @@ function MainPage() {
             year={movie.year}
             rating={movie.rating}
             img_link={movie.img_link}
+            reviews = {movie.reviews}
           />
         ))
       ) : (
