@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { Routes, Route, useNavigate } from "react-router-dom"
 import Signup from './Signup';
 import { useState, useEffect } from 'react';
-
+import MainPage from './MainPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       
       <Routes>
-        {/* <Route path="/" element={<MainPage />}/> */}
+        <Route path="/" element={<MainPage />}/> 
         <Route path="/login" element={<Login setUser={setUser} />}/>
         <Route path="/signup" element={<Signup />}/>
       </Routes>
