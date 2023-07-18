@@ -5,6 +5,8 @@ import Navbar from './Navbar';
 import { Routes, Route, useNavigate } from "react-router-dom"
 import Signup from './Signup';
 import { useState, useEffect } from 'react';
+
+
 function App() {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
@@ -35,6 +37,7 @@ function App() {
         
     </div>
   );
+  
 }
 
 export default App;
