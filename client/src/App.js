@@ -1,34 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from'./Login'
+import Navbar from './Navbar';
+import { Routes, Route, useNavigate } from "react-router-dom"
+import Signup from './Signup';
 import { useState, useEffect } from 'react';
 
 
 function App() {
-
-  const [loggedIn, setLogin] = useState(false)
+  const [user, setUser] = useState(null);
+  let navigate = useNavigate();
   useEffect(() => {
-    fetch('http://127.0.0.1:5555/user/3')
+    fetch('/check_session')
     .then(r => r.json())
-    .then(r => console.log(r))}, []
+    .then(r => {
+      if(r.ok) {
+        setUser(r)
+        console.log(user)
+        console.log(r)
+      }
+      else {
+        navigate('/login')
+      }
+      
+    })}, []
   )
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Login />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Routes>
+        {/* <Route path="/" element={<MainPage />}/> */}
+        <Route path="/login" element={<Login setUser={setUser} />}/>
+        <Route path="/signup" element={<Signup />}/>
+      </Routes>
+        
     </div>
   );
   
