@@ -6,6 +6,7 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 import Signup from './Signup';
 import { useState, useEffect } from 'react';
 import MainPage from './MainPage';
+import MoviePage from './MoviePage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<MainPage />}/> 
         <Route path="/login" element={<Login setUser={setUser} />}/>
         <Route path="/signup" element={<Signup />}/>
+        <Route path="/movies/:id" element={<MoviePage />} />
       </Routes>
         
     </div>
