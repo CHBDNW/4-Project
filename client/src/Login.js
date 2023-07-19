@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-function Login({ user, setUser, navigate }) {
+function Login({ setUser, navigate }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,7 +34,7 @@ function Login({ user, setUser, navigate }) {
         setUser(r)
         setUsername('');
         setPassword('');
-        console.log('executed')
+        console.log('signed in')
         navigate('/')
       }
       )}
