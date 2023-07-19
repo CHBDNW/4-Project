@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom"
 
-function Login({ setUser, navigate }) {
+function Login({ setUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -31,7 +33,6 @@ function Login({ setUser, navigate }) {
           return r.json()
         }})
       .then(r => {
-        setUser(r)
         setUsername('');
         setPassword('');
         console.log('signed in')
