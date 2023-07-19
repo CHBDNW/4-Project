@@ -2,8 +2,11 @@ import './App.css';
 import Login from'./Login'
 import MainPage from './MainPage';
 import Signup from './Signup';
+import MoviePage from './MoviePage';
 import { Routes, Route, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react';
+
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,6 +34,7 @@ function App() {
         <Route path="/" element={<MainPage navigate={navigate} />}/> 
         <Route path="/login" element={<Login user={user} setUser={setUser} navigate={navigate} />}/> 
         <Route path="/signup" element={<Signup setUser={setUser} navigate={navigate}/>}/>
+        <Route path="/movies/:id" element={<MoviePage />} />
       </Routes>
         
     </div>
