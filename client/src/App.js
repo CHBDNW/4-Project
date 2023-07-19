@@ -11,21 +11,21 @@ import MoviePage from './MoviePage';
 function App() {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();
-  useEffect(() => {
-    fetch('/check_session')
-    .then(r => r.json())
-    .then(r => {
-      if(r.ok) {
-        setUser(r)
-        console.log(user)
-        console.log(r)
-      }
-      else {
-        navigate('/login')
-      }
+  // useEffect(() => {
+  //   fetch('/check_session')
+  //   .then(r => r.json())
+  //   .then(r => {
+  //     if(r.ok) {
+  //       setUser(r)
+  //       console.log(user)
+  //       console.log(r)
+  //     }
+  //     else {
+  //       navigate('/login')
+  //     }
       
-    })}, []
-  )
+  //   })}, []
+  // )
   
   return (
     <div className="App">
