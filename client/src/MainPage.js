@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import Search from './Search';
+import { useNavigate } from "react-router-dom"
 
-function MainPage({navigate}) {
+function MainPage() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState('')
+  let navigate = useNavigate();
   useEffect(() => {
     fetch('http://localhost:5555/movies') 
       .then(response => response.json())

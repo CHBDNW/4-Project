@@ -31,7 +31,6 @@ function Login({ setUser, navigate }) {
           return r.json()
         }})
       .then(r => {
-        setUser(r)
         setUsername('');
         setPassword('');
         console.log('signed in')

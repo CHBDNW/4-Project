@@ -35,7 +35,6 @@ function Signup({ setUser, navigate }) {
             if(r.ok) { return r.json()
             }})
           .then(r => {
-          setUser(r)
           setUsername('');
           setPassword('');
           setImgUrl('');
