@@ -1,45 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from'./Login'
-import Navbar from './Navbar';
-import { Routes, Route, useNavigate } from "react-router-dom"
-import Signup from './Signup';
-import { useState, useEffect } from 'react';
 import MainPage from './MainPage';
+import Signup from './Signup';
 import MoviePage from './MoviePage';
+import { Routes, Route, useNavigate } from "react-router-dom"
+import { useState, useEffect } from 'react';
+
+
 
 function App() {
   const [user, setUser] = useState(null);
+
   let navigate = useNavigate();
   useEffect(() => {
     fetch('/check_session')
-    .then(r => r.json())
     .then(r => {
       if(r.ok) {
-        setUser(r)
-        console.log(user)
-        console.log(r)
-      }
-      else {
-        navigate('/login')
-      }
-      
-    })}, []
+         return r.json()
+        }
+      })
+    .then(r => {
+      setUser(r)
+    }
+    )}, []
   )
-  
+  if(!user) {
+    navigate('/login')
+  }
   return (
     <div className="App">
       
       <Routes>
-        <Route path="/" element={<MainPage />}/> 
-        <Route path="/login" element={<Login setUser={setUser} />}/>
-        <Route path="/signup" element={<Signup />}/>
+        <Route path="/" element={<MainPage navigate={navigate} />}/> 
+        <Route path="/login" element={<Login user={user} setUser={setUser} navigate={navigate} />}/> 
+        <Route path="/signup" element={<Signup setUser={setUser} navigate={navigate}/>}/>
         <Route path="/movies/:id" element={<MoviePage />} />
       </Routes>
         
     </div>
   );
-  
+
 }
 
 export default App;

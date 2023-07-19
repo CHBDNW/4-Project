@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-function Login({ setuser }) {
+function Login({ setUser, navigate }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,7 +15,7 @@ function Login({ setuser }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newUser = {
+    const userLogin = {
         username: e.target.username.value,
         password: e.target.password.value,
     }
@@ -24,17 +24,23 @@ function Login({ setuser }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newUser),
+        body: JSON.stringify(userLogin),
       })
-      .then(r => r.json())
       .then(r => {
-        if(r.ok) {
-            setuser(r)
-            setUsername('');
-            setPassword('');
-        }
-      })
-  };
+        if(r.ok) { 
+          return r.json()
+        }})
+      .then(r => {
+        setUser(r)
+        setUsername('');
+        setPassword('');
+        console.log('signed in')
+        navigate('/')
+      }
+      )}
+  function handleSignupClick() {
+    navigate('/signup')
+  }
 
   return (
     <div>
@@ -59,6 +65,7 @@ function Login({ setuser }) {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleSignupClick}>Signup</button>
     </div>
   );
 }
