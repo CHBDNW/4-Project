@@ -130,7 +130,7 @@ def login():
     data = request.get_json()
     user = User.query.filter_by(username=data['username']).first()
     if not user or not user.authenticate(data['password']):
-        return {'error: invalid login'}, 404
+        return {'error': 'invalid input'}, 422 
     session['user_id'] = user.id
     return user.to_dict(), 201
 
