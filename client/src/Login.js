@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-function Login({ setUser }) {
+
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   let navigate = useNavigate();
@@ -31,14 +32,25 @@ function Login({ setUser }) {
       .then(r => {
         if(r.ok) { 
           return r.json()
-        }})
+        }
+        else {
+          throw new Error('Login request failed');
+        }
+      })
+        
       .then(r => {
         setUsername('');
         setPassword('');
         console.log('signed in')
-        navigate('/')
+        navigate(`/`)
+      })
+      .catch((error) => {
+        console.error('Error occurred during login:', error);
+        alert('Invalid input')
+      });
       }
-      )}
+      
+      
   function handleSignupClick() {
     navigate('/signup')
   }
