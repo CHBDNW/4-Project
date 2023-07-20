@@ -10,6 +10,7 @@ function UserContent({setUser, user}) {
         })
         .then(r => {
           setUser(r)
+          
         })
           }, [setUser])
     return (
