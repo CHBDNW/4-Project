@@ -31,14 +31,25 @@ function Login({ setUser }) {
       .then(r => {
         if(r.ok) { 
           return r.json()
-        }})
+        }
+        else {
+          throw new Error('Login request failed');
+        }
+      })
+        
       .then(r => {
         setUsername('');
         setPassword('');
         console.log('signed in')
         navigate('/')
+      })
+      .catch((error) => {
+        console.error('Error occurred during login:', error);
+        alert('Invalid input')
+      });
       }
-      )}
+      
+      
   function handleSignupClick() {
     navigate('/signup')
   }

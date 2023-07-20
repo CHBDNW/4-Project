@@ -6,7 +6,7 @@ const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const [userId, setUserId] = useState(null);
   const [reviewText, setReviewText] = useState('');
-  const [reviews, setReviews] = useState([]); // State for storing the reviews
+  const [reviews, setReviews] = useState([]); 
 
   useEffect(() => {
     fetch(`http://localhost:5555/movies/${id}`)

@@ -8,8 +8,8 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
    
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
-    _password_hash = db.Column(db.String)
+    username = db.Column(db.String, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
     img_url = db.Column(db.String)
 
     serialize_rules = ('-reviews.user', '-_password_hash',) 
