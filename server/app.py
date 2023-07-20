@@ -11,7 +11,7 @@ from flask import request, session
 # from flask_restful import Resource
 # Local imports
 from config import app, db, api
-
+app.secret_key = '123'
 # Views go here!
 
 @app.get('/movies')

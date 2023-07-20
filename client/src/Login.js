@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
 
-function Login() {
+function Login({setUser}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   let navigate = useNavigate();
@@ -22,7 +22,7 @@ function Login() {
         username: e.target.username.value,
         password: e.target.password.value,
     }
-    fetch('/login', {
+    fetch('http://127.0.0.1:5555/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,6 +41,7 @@ function Login() {
       .then(r => {
         setUsername('');
         setPassword('');
+        setUser(r);
         console.log('signed in')
         navigate(`/`)
       })

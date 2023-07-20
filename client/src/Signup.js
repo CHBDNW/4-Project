@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-function Signup() {
+function Signup({setUser}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [imgUrl, setImgUrl] = useState('');
@@ -26,7 +26,7 @@ function Signup() {
             password: e.target.password.value,
             img_url: e.target.imgUrl.value,
         }
-        fetch('/signup', {
+        fetch('http://127.0.0.1:5555/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -45,6 +45,7 @@ function Signup() {
           setUsername('');
           setPassword('');
           setImgUrl('');
+          setUser(r);
           console.log('executed')
           navigate('/')
         })

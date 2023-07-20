@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const MoviePage = () => {
+const MoviePage = ({user}) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [userId, setUserId] = useState(null);
@@ -13,17 +13,12 @@ const MoviePage = () => {
       .then((response) => response.json())
       .then((data) => {
         setMovie(data);
-        setReviews(data.reviews); 
+        setReviews(data.reviews);
+        setUserId(user.id)
       })
+      
       .catch((error) => console.log(error));
   }, [id]);
-
-  useEffect(() => {
-    fetch('http://localhost:5555/getUserId') 
-      .then((response) => response.json())
-      .then((data) => setUserId(data.userId))
-      .catch((error) => console.log(error));
-  }, []);
 
   if (!movie) {
     return <p>Loading movie details...</p>;
