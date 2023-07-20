@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
 
-function Login() {
+function Login({setUser}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   let navigate = useNavigate();
@@ -42,6 +42,7 @@ function Login() {
         setUsername('');
         setPassword('');
         console.log('signed in')
+        setUser(r)
         navigate(`/`)
       })
       .catch((error) => {
