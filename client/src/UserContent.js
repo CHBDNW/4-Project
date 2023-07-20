@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function UserContent({ setUser, user }) {
+  const [review, setReview] = useState('')
   useEffect(() => {
-    fetch(`user/${user.id}`)
+    fetch(`http://127.0.0.1:5555/user/${user.id}`)
       .then(r => {
         if (r.ok) {
           return r.json();
@@ -14,6 +15,57 @@ function UserContent({ setUser, user }) {
       });
   }, [setUser]);
 
+  const handleDeleteReview = (reviewId) => {
+    fetch(`/review/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    })
+      .then((response) => {
+        if (response.ok) {
+          const updatedReviews = user.reviews.filter((review) => review.id !== reviewId);
+          setUser({ ...user, reviews: updatedReviews });
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+  function handleReviewChange(e) {
+    setReview(e.target.value)
+  }
+
+  function handleUpdateReview(id) {
+    // Assuming you have the data to update in a variable called 'data'
+    const data = {
+          user_review: review
+    };
+  
+    fetch(`/review/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        user.reviews.map(r => {
+          if (r.id === id) {
+            return r.user_review = review
+          }
+          return r
+        })
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+  
   return (
     <div style={styles.container}>
       <nav style={styles.navbar}>
@@ -24,7 +76,11 @@ function UserContent({ setUser, user }) {
       <div style={styles.reviewsList}>
         <h3>Your reviews:</h3>
         {user.reviews.map(review => {
-          return <div key={review.id} style={styles.reviewItem}>{review.user_review}</div>;
+          return <div key={review.id} style={styles.reviewItem}>
+                      <textarea defaultValue={review.user_review} onChange={handleReviewChange}/>
+                      <button onClick={() => handleUpdateReview(review.id)}>Update this review</button>
+                      <button onClick={() => handleDeleteReview(review.id)}>Delete this review</button>
+          </div>;
         })}
       </div>
     </div>
