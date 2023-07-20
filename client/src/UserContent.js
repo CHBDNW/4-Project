@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function UserContent({ setUser, user }) {
   useEffect(() => {
-    fetch(`user/${user.id}`)
+    fetch(`http://127.0.0.1:5555/user/${user.id}`)
       .then(r => {
         if (r.ok) {
           return r.json();
@@ -14,6 +14,24 @@ function UserContent({ setUser, user }) {
       });
   }, [setUser]);
 
+  const handleDeleteReview = (reviewId) => {
+    fetch(`http://127.0.0.1:5555/reviews/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    })
+      .then((response) => {
+        if (response.ok) {
+          const updatedReviews = user.reviews.filter((review) => review.id !== reviewId);
+          setUser({ ...user, reviews: updatedReviews });
+        } else {
+          console.log('Failed to delete review.');
+        }
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div style={styles.container}>
       <nav style={styles.navbar}>
@@ -24,7 +42,9 @@ function UserContent({ setUser, user }) {
       <div style={styles.reviewsList}>
         <h3>Your reviews:</h3>
         {user.reviews.map(review => {
-          return <div key={review.id} style={styles.reviewItem}>{review.user_review}</div>;
+          return <div key={review.id} style={styles.reviewItem}>{review.user_review}
+          <button onClick={() => handleDeleteReview(review.id)}>Delete this review</button>
+          </div>;
         })}
       </div>
     </div>

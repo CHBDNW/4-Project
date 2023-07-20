@@ -7,6 +7,7 @@ import MainPage from './MainPage';
 import MoviePage from './MoviePage';
 import UserContent from './UserContent';
 
+
 function App() {
   const [user, setUser] = useState(null);
   let navigate = useNavigate();

@@ -24,10 +24,13 @@ metadata = MetaData(naming_convention={
 db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
-
+app.config['ORIGINS'] = [
+    'http://localhost:3000',
+    'http://localhost:5555',
+]
 # Instantiate REST API
 api = Api(app)
 
 bcrypt = Bcrypt(app)
 # Instantiate CORS
-CORS(app)
+CORS(app, resources = { r'/*': {'origins':app.config['ORIGINS']} }, supports_credentials=True)

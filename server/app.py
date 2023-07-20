@@ -13,6 +13,8 @@ from flask import request, session
 from config import app, db, api
 app.secret_key = '123'
 # Views go here!
+from flask_cors import CORS
+CORS(app)
 
 @app.get('/movies')
 def get_all_movies():
