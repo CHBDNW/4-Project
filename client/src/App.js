@@ -34,7 +34,7 @@ function App() {
         <Route path="/" element={<MainPage user={user} setUser={setUser} />}/> 
         <Route path="/login" element={<Login user={user} setUser={setUser}/>}/> 
         <Route path="/signup" element={<Signup setUser={setUser}/>}/>
-        <Route path="/movies/:id" element={<MoviePage />} />
+        <Route path="/movies/:id" element={<MoviePage user={user} />} />
         <Route path="/user" element={<UserContent setUser={setUser} user={user}/>} />
       </Routes>
         

@@ -43,6 +43,7 @@ function Login({setUser}) {
         setPassword('');
         setUser(r);
         console.log('signed in')
+        setUser(r)
         navigate(`/`)
       })
       .catch((error) => {
