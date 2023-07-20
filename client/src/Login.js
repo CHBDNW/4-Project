@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-function Login({ setUser }) {
+
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   let navigate = useNavigate();
@@ -41,7 +42,7 @@ function Login({ setUser }) {
         setUsername('');
         setPassword('');
         console.log('signed in')
-        navigate('/')
+        navigate(`/`)
       })
       .catch((error) => {
         console.error('Error occurred during login:', error);

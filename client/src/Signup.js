@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-function Signup({ setUser }) {
+function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [imgUrl, setImgUrl] = useState('');
