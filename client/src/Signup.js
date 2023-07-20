@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-function Signup() {
+function Signup({setUser}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [imgUrl, setImgUrl] = useState('');
@@ -45,7 +45,7 @@ function Signup() {
           setUsername('');
           setPassword('');
           setImgUrl('');
-          console.log('executed')
+          setUser(r)
           navigate('/')
         })
         .catch((error) => {
