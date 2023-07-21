@@ -2,6 +2,11 @@
 
 ## Setup instructions
 
+run pipenv install; pipenv shell
+
+run pip install bcrypt
+
+
 
 
 
