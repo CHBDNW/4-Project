@@ -14,7 +14,7 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ('-reviews.user', '-_password_hash',) 
     reviews = db.relationship('Review', backref='user', cascade = 'all') 
-    movies = db.relationship
+    # movies = db.relationship
 
     @hybrid_property
     def password_hash(self):
