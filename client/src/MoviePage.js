@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const MoviePage = ({user}) => {
+const MoviePage = ({ user }) => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [userId, setUserId] = useState(null);
   const [reviewText, setReviewText] = useState('');
-  const [reviews, setReviews] = useState([]); 
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5555/movies/${id}`)
@@ -14,9 +14,8 @@ const MoviePage = ({user}) => {
       .then((data) => {
         setMovie(data);
         setReviews(data.reviews);
-        setUserId(user.id)
+        setUserId(user.id);
       })
-      
       .catch((error) => console.log(error));
   }, [id]);
 
@@ -39,7 +38,7 @@ const MoviePage = ({user}) => {
       .then((response) => response.json())
       .then((data) => {
         setReviews([...reviews, data]);
-        setReviewText(''); 
+        setReviewText('');
       })
       .catch((error) => console.log(error));
   };
@@ -59,15 +58,31 @@ const MoviePage = ({user}) => {
         ))}
       </div>
       <div>
+        {/* Apply the same textarea style */}
         <textarea
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="Write your review here..."
+          style={styles.textarea}
         />
         <button onClick={handleAddReview}>Submit Review</button>
       </div>
     </div>
   );
+};
+
+const styles = {
+  textarea: {
+    width: '100%',
+    minHeight: '100px',
+    resize: 'vertical',
+    padding: '5px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    fontFamily: 'Arial, sans-serif',
+    marginBottom: '10px', // Add some space below the textarea
+  },
 };
 
 export default MoviePage;
