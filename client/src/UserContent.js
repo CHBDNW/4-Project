@@ -84,6 +84,7 @@ function UserContent({ setUser, user }) {
             <div key={review.id} style={styles.reviewItem}>
               {/* Add a parent container for textarea and buttons */}
               <div style={styles.reviewItemContent}>
+                <h2>{review.movie.name}</h2>
                 {/* Style the textarea here */}
                 <textarea
                   defaultValue={review.user_review}
