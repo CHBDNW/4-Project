@@ -94,19 +94,17 @@ def update_review_by_id(id):
 
 @app.delete('/review/<int:id>')
 def delete_review_by_id(id):
-    review_del = Review.query.filter(
-        Review.id == id
-    ).first()
-
-    if not review_del:
-        return make_response(
-            jsonify({'error' : 'Review not found'}),
-            404
-        )
-    db.session.delete(review_del)
-    db.session.commit()
-
-    return make_response(jsonify({}), 200)
+    try:
+        review_del = Review.query.filter(Review.id == id).first()
+        db.session.delete(review_del)
+        db.session.commit()
+        return make_response(jsonify({}), 200)
+    except ValueError:
+            if not review_del:
+                return make_response(
+                    jsonify({'error' : 'Review not found'}),
+                    400
+                )
 
 @app.post('/signup')
 def signup():
